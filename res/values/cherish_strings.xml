@@ -488,4 +488,10 @@
     <string name="qs_columns_landscape_title">Columns (landscape)</string>
     <string name="qqs_rows_portrait_title">Quick QS Rows (portrait)</string>
     <string name="qqs_rows_landscape_title">Quick QS Rows (landscape)</string>
+
+    <!-- Double Tap -->
+    <string name="dtts_category_header">Double tap to sleep</string>
+    <!-- Double Tap Lockscreen to Sleep -->
+    <string name="double_tap_to_sleep_lockscreen_title">Lockscreen</string>
+    <string name="double_tap_to_sleep_lockscreen_summary">Double tap on the lock screen to put the device to sleep</string>
 </resources>
