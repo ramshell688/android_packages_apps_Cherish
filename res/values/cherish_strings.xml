@@ -268,4 +268,8 @@
     <string name="network_traffic_units_title">Traffic measurement units</string>
     <string name="network_traffic_units_bits" translatable="false">kbps, Mbps, Gbps</string>
     <string name="network_traffic_units_bytes" translatable="false">kB/s, MB/s, GB/s</string>
+
+	<!-- Notification guts kill app button -->
+    <string name="notification_guts_kill_app_button_title">Force stop button</string>
+    <string name="notification_guts_kill_app_button_summary">Show force stop button in the notification\'s longpress menu</string>
 </resources>
