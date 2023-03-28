@@ -38,13 +38,17 @@ import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.search.SearchIndexable;
 import android.provider.SearchIndexableResource;
 
+import com.cherish.settings.fragments.SmartPixels;
 import java.util.ArrayList;
 import java.util.List;
 
-@SearchIndexable(forTarget = SearchIndexable.ALL & ~SearchIndexable.ARC)
+@SearchIndexable
 public class MiscSettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
 
+	private static final String SMART_PIXELS = "smart_pixels";
+
+	private Preference mSmartPixels;
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -52,16 +56,14 @@ public class MiscSettings extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.cherish_settings_misc);
 		
-		Resources res = null;
-        Context ctx = getContext();
-        float density = Resources.getSystem().getDisplayMetrics().density;
-
-        try {
-            res = ctx.getPackageManager().getResourcesForApplication("com.android.systemui");
-        } catch (NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
+		final PreferenceScreen prefScreen = getPreferenceScreen();
+        final Resources res = getResources();
+		
+		mSmartPixels = (Preference) prefScreen.findPreference(SMART_PIXELS);
+           boolean mSmartPixelsSupported = getResources().getBoolean(
+                 com.android.internal.R.bool.config_supportSmartPixels);
+           if (!mSmartPixelsSupported)
+                 prefScreen.removePreference(mSmartPixels);
     }
 
     @Override
@@ -79,24 +81,18 @@ public class MiscSettings extends SettingsPreferenceFragment implements
      * For Search.
      */
 
-    public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
-            new BaseSearchIndexProvider() {
+    public static final BaseSearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+     new BaseSearchIndexProvider(R.xml.cherish_settings_misc) {
+         @Override
+         public List<String> getNonIndexableKeys(Context context) {
+             List<String> keys = super.getNonIndexableKeys(context);
 
-                @Override
-                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
-                        boolean enabled) {
-                    ArrayList<SearchIndexableResource> result =
-                            new ArrayList<SearchIndexableResource>();
-                    SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.cherish_settings_misc;
-                    result.add(sir);
-                    return result;
-                }
+             boolean mSmartPixelsSupported = context.getResources().getBoolean(
+                     com.android.internal.R.bool.config_supportSmartPixels);
+             if (!mSmartPixelsSupported)
+                 keys.add(SMART_PIXELS);
 
-                @Override
-                public List<String> getNonIndexableKeys(Context context) {
-                    List<String> keys = super.getNonIndexableKeys(context);
-                    return keys;
-                }
-    };
+             return keys;
+         }
+     };
 }
