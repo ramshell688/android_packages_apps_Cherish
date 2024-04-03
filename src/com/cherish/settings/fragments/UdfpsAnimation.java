@@ -59,7 +59,8 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.widget.SettingsMainSwitchBar;
 import com.android.settingslib.search.Indexable;
-import com.android.settingslib.widget.OnMainSwitchChangeListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
