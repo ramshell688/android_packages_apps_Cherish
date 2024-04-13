@@ -60,7 +60,6 @@ import java.util.List;
 public class LockScreenSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String CATEGORY_AMBIENT = "ambient_display";
     private static final String UDFPS_CATEGORY = "udfps_category";
 
 	private PreferenceCategory mUdfpsCategory;
@@ -87,12 +86,6 @@ public class LockScreenSettings extends SettingsPreferenceFragment implements
         mUdfpsCategory = findPreference(UDFPS_CATEGORY);
         if (!UdfpsUtils.hasUdfpsSupport(getContext())) {
             prefScreen.removePreference(mUdfpsCategory);
-        }
-
-        final PreferenceCategory ambientCat = (PreferenceCategory) prefScreen.findPreference(CATEGORY_AMBIENT);
-        if (TextUtils.isEmpty(getResources().getString(com.android.internal.R.string.config_dozeDoubleTapSensorType)) &&
-                TextUtils.isEmpty(getResources().getString(com.android.internal.R.string.config_dozeTapSensorType))) {
-            prefScreen.removePreference(ambientCat);
         }
     }
 
